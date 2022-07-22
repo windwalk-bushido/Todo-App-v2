@@ -1,13 +1,19 @@
-Send and receive todos via Axios and API
+Minors {
+  Add loading circle when waiting for API response
+  Deleting Modal should be displayed on whole screen
+}
 
 Change DRF permission module in 'settings.py'
 Disable CORS
+Write good 'settings.py' file
 
-API should communicate only over proper API key
 Write down .env creation script
+App and API should communicate only over proper API key
 
-Write Docker files for production and development environments
-Test `docker-compose` for production
+`docker-compose` file should have sensitive info. fetched from .env file
+Write Dockerfiles for production and development environments
+Test `docker-compose` for production and development
 
 Remove unnecessary files and comments
-Make sure README file has `Copy+Paste+Enter` commands for fastest deployment!
+Make sure README file has `Copy+Paste+Enter` commands for fastest deployment
+Write down instructions for deploying on Vercel + Heroku

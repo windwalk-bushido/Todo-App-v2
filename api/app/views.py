@@ -1,4 +1,3 @@
-#from django.views.decorators.csrf import ensure_csrf_cookie
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import *
@@ -6,7 +5,6 @@ from .models import *
 
 
 @api_view(['GET'])
-# @ensure_csrf_cookie
 def get_todos(request):
     try:
         queryset = Todo.objects.all().order_by('id')
@@ -17,7 +15,6 @@ def get_todos(request):
 
 
 @api_view(['GET'])
-# @ensure_csrf_cookie
 def get_todo_by_id(request, id):
     try:
         queryset = Todo.objects.get(id=id)
@@ -28,32 +25,29 @@ def get_todo_by_id(request, id):
 
 
 @api_view(['POST'])
-# @ensure_csrf_cookie
 def add_todo(request):
     try:
         new_todo = TodoSerializer(data=request.data)
         if new_todo.is_valid():
             new_todo.save()
-        return Response({'message': 'Adding todo was successfull'})
+        return Response(new_todo.data)
     except:
         return Response({'message': 'Adding -> FAILED'})
 
 
 @api_view(['PUT'])
-# @ensure_csrf_cookie
 def update_todo(request, id):
     try:
         todo = Todo.objects.get(id=id)
         updated_todo = TodoSerializer(instance=todo, data=request.data)
         if updated_todo.is_valid():
             updated_todo.save()
-        return Response({'message': 'Updating todo was successfull'})
+        return Response(updated_todo.data)
     except:
         return Response({'message': 'Updating -> FAILED'})
 
 
 @api_view(['DELETE'])
-# @ensure_csrf_cookie
 def delete_todo(request, id):
     try:
         todo = Todo.objects.get(id=id)

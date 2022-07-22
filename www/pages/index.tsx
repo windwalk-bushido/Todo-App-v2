@@ -4,11 +4,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faCheck, faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
-//const URL = "http://localhost:8000/todos/";
-//const URL = "https://todo-api.dev.django/todos/";
-const URL = "http://api:8000/todos/";
+//const URL = "https://todo-api.dev.django/todos/";               <--- Should be using this but since it's HTTPS but it won't work
+//const URL = "http://api:8000/todos/";                           <--- Only GET method works
+const URL = "https://windwalks-todo-api.herokuapp.com/todos/"; // <--- API deployed on Heroku since Axios needs the Next and Django to be on HTTPS aswell
 
-const DEBUG = true; // true => CRUD data on Client Side, false => CRUD data by sending it to Django
+const DEBUG = false; // true => CRUD data on Client Side, false => CRUD data by sending it to Django API
 
 export const getServerSideProps = async () => {
   let fetched_todos: any = [];
@@ -16,6 +16,7 @@ export const getServerSideProps = async () => {
     .get(URL)
     .then((response) => {
       fetched_todos = response["data"];
+      console.log(response["data"]);
     })
     .catch((error) => {
       console.log(error);
@@ -60,17 +61,15 @@ const Index = ({ fetched_todos }: any) => {
   const AddTodo = async () => {
     if (temp_todo_item !== "" && edit_index === -1) {
       if (!DEBUG) {
-        const new_todo = {
-          body: temp_todo_item,
-          done: false,
-        };
         let fetched_todo: any = null;
         await axios
           .post(URL + "add/", {
-            data: new_todo,
+            body: temp_todo_item,
+            done: false,
           })
           .then((response) => {
             fetched_todo = response["data"];
+            console.log(response["data"]);
           })
           .catch((error) => {
             console.log(error);
@@ -92,23 +91,25 @@ const Index = ({ fetched_todos }: any) => {
     if (temp_todo_item !== "" && edit_index !== -1) {
       if (!DEBUG) {
         const updated_todo = {
+          id: todos[edit_index]?.id,
           body: temp_todo_item,
           done: todos[edit_index]?.done,
         };
-        let fetched_todo: any = null;
         await axios
           .put(URL + "update/" + todos[edit_index]?.id, {
-            data: updated_todo,
+            id: todos[edit_index]?.id,
+            body: temp_todo_item,
+            done: todos[edit_index]?.done,
           })
           .then((response) => {
-            fetched_todo = response["data"];
+            console.log(response["data"]);
           })
           .catch((error) => {
             console.log(error);
           });
 
         const todo_list: any = todos.slice();
-        todo_list[edit_index] = fetched_todo;
+        todo_list[edit_index] = updated_todo;
         setTodos(todo_list);
       } else {
         const updated_todo = todos[edit_index];
@@ -135,23 +136,25 @@ const Index = ({ fetched_todos }: any) => {
   const DoneTodo = async (index: number) => {
     if (!DEBUG) {
       const updated_todo = {
+        id: todos[index]?.id,
         body: todos[index]?.body,
         done: !todos[index]?.done,
       };
-      let fetched_todo: any = null;
       await axios
         .put(URL + "update/" + todos[index]?.id, {
-          data: updated_todo,
+          id: todos[index]?.id,
+          body: todos[index]?.body,
+          done: !todos[index]?.done,
         })
         .then((response) => {
-          fetched_todo = response["data"];
+          console.log(response["data"]);
         })
         .catch((error) => {
           console.log(error);
         });
 
       const todo_list: any = todos.slice();
-      todo_list[index] = fetched_todo;
+      todo_list[index] = updated_todo;
       setTodos(todo_list);
     } else {
       const updated_todo = todos[index];
