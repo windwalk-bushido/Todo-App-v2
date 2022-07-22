@@ -1,9 +1,9 @@
-Write down those 3-4 CSS classes from old project (Vue 3) to App
-Manage state properly
-Send and receive todos via Axios and API
+On "Enter" key trigger input button
 Reimplement whole Next project properly (those TS files, etc)
+Send and receive todos via Axios and API
+
 API should communicate only over proper API key
 Write down .env creation script
-Write Docker files for production and development environments
-Test Docker-Compose for Production
 
+Write Docker files for production and development environments
+Test `docker-compose` for production
