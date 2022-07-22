@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  caddy:
+    image: caddy:2.5.0-alpine
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - $PWD/caddy/local.Caddyfile:/etc/caddy/Caddyfile
+    networks:
+      - todos
+
+  www:
+    build:
+      context: ./www
+      dockerfile: development.Dockerfile
+    command: npm run dev
+    restart: always
+    ports:
+      - 3000:3000
+    networks:
+      - todos
+    volumes:
+      - $PWD/www:/next
+
+  api:
+    build:
+      context: ./api
+      dockerfile: development.Dockerfile
+    command: python manage.py runserver 0.0.0.0:8000
+    restart: always
+    ports:
+      - 8000:8000
+    networks:
+      - todos
+    volumes:
+      - $PWD/api:/django
+
+networks:
+  todos:

@@ -1,0 +1,19 @@
+todo-api.dev.django {
+    tls internal
+
+    handle {
+        reverse_proxy {
+            to api:8000
+        }
+    }
+}
+
+todo-app.dev.next {
+    tls internal
+
+    handle {
+        reverse_proxy {
+            to www:3000
+        }
+    }
+}

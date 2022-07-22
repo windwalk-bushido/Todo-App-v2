@@ -1,0 +1,9 @@
+Write down those 3-4 CSS classes from old project (Vue 3) to App
+Manage state properly
+Send and receive todos via Axios and API
+Reimplement whole Next project properly (those TS files, etc)
+API should communicate only over proper API key
+Write down .env creation script
+Write Docker files for production and development environments
+Test Docker-Compose for Production
+
