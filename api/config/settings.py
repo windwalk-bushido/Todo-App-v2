@@ -11,8 +11,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import environ
 from pathlib import Path
-import django_heroku
-django_heroku.settings(locals())
+# import django_heroku
+# django_heroku.settings(locals())
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.

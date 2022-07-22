@@ -8,3 +8,6 @@ Write down .env creation script
 
 Write Docker files for production and development environments
 Test `docker-compose` for production
+
+Remove unnecessary files and comments
+Make sure README file has `Copy+Paste+Enter` commands for fastest deployment!
