@@ -1,6 +1,7 @@
-On "Enter" key trigger input button
-Reimplement whole Next project properly (those TS files, etc)
 Send and receive todos via Axios and API
+
+Change DRF permission module in 'settings.py'
+Disable CORS
 
 API should communicate only over proper API key
 Write down .env creation script

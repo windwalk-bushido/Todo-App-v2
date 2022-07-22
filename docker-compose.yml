@@ -3,6 +3,7 @@ version: "3.9"
 services:
   caddy:
     image: caddy:2.5.0-alpine
+    restart: always
     ports:
       - 80:80
       - 443:443
@@ -36,6 +37,23 @@ services:
       - todos
     volumes:
       - $PWD/api:/django
+
+  db:
+    image: postgres:14.2-alpine
+    restart: always
+    environment:
+      - POSTGRES_DB=todosDB
+      - POSTGRES_USER=windwalk
+      - POSTGRES_PASSWORD=15973
+    ports:
+      - 5432:5432
+    networks:
+      - todos
+    volumes:
+      - $PWD/postgres_data:/var/lib/postgresql/data/
+
+volumes:
+  postgres_data:
 
 networks:
   todos:

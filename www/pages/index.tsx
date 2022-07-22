@@ -209,7 +209,15 @@ const Index = ({ fetched_todos }: any) => {
           <h1 className="mt-2 text-center text-4xl">Todo App</h1>
 
           <div className="flex justify-center items-center w-full mt-12">
-            <input className="p-2 rounded-tl-3xl rounded-bl-3xl text-xl input bg-gray-700 " type="text" placeholder="Buy 3 bottles of milk" onChange={(e) => setTempTodo(e.target.value)} value={temp_todo_item} id="todo_input" />
+            <input
+              className="p-2 rounded-tl-3xl rounded-bl-3xl text-xl input bg-gray-700 "
+              placeholder="Buy 3 bottles of milk"
+              id="todo_input"
+              type="text"
+              value={temp_todo_item}
+              onChange={(e) => setTempTodo(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && AddTodo()}
+            />
             <button className="flex justify-center items-center w-12 h-12 p-2 rounded-tr-3xl rounded-br-3xl text-2xl transition-all duration-100 ease-linear bg-blue-700 text-white hover:bg-blue-300 hover:text-black" onClick={() => AddTodo()}>
               <FontAwesomeIcon icon={faPlus} />
             </button>
